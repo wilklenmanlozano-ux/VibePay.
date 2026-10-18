@@ -222,6 +222,7 @@ header{grid-area:head;padding:22px 32px 12px}h1{font-size:26px}.pill{font-size:1
 .mem{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
 .mch{font-size:11px;padding:5px 10px;border-radius:99px;background:var(--card2);border:1px solid var(--bd);color:var(--mut)}
 .asnd{display:flex;gap:8px;justify-content:center;margin-top:16px}.asnd .btn{display:inline-flex;align-items:center;gap:6px}.btn.off{opacity:.45}
+.atabs button{padding:10px 4px;font-size:12px;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -292,22 +293,26 @@ header{grid-area:head;padding:22px 32px 12px}h1{font-size:26px}.pill{font-size:1
     </div>
   </div>
 </section>
+<section class="view" id="v-pan"><div class="hd"><div><h2>Paneles Compartidos</h2><div class="sub">Tu panel y los paneles donde participas</div></div></div>
+<div class="card" style="margin-bottom:14px"><div class="list" id="plist"></div></div>
+<div class="card"><h3>Unirme con código</h3><p class="sub" style="margin:4px 0 0">Escribe el código que te compartieron.</p><div class="wrow"><input id="pc" maxlength="12" autocapitalize="characters" autocomplete="off" placeholder="Código de invitación" style="text-transform:uppercase;letter-spacing:.12em"><button class="btn" id="pj"><span data-i="userplus"></span> Unirme</button></div></div></section>
 </main>
-<nav id="nav" class="tabbar"><button data-v="reg" class="on"><span data-i="list"></span><small>Registro</small></button><button data-v="res"><span data-i="chart"></span><small>Resumen</small></button><button data-v="sob"><span data-i="mail"></span><small>Sobres</small></button><button data-v="his"><span data-i="archive"></span><small>Cierre</small></button></nav>
+<nav id="nav" class="tabbar"><button data-v="reg" class="on"><span data-i="list"></span><small>Registro</small></button><button data-v="res"><span data-i="chart"></span><small>Resumen</small></button><button data-v="sob"><span data-i="mail"></span><small>Sobres</small></button><button data-v="his"><span data-i="archive"></span><small>Cierre</small></button><button data-v="pan"><span data-i="users"></span><small>Paneles</small></button></nav>
 <button id="fab" class="fab" aria-label="Nuevo registro"><span data-i="plus"></span></button>
 <div id="bd"></div>
 </div>
 <div class="auth" id="auth"><div class="acard card">
 <div class="igem" data-i="gem"></div>
 <div class="abrand"><span class="vg">Vibe</span><span class="vb">Pay</span></div><div class="asub">Tu economía, en el mejor lugar</div>
-<div class="atabs"><button data-a="login" class="on">Entrar</button><button data-a="signup">Crear Usuario</button></div>
+<div class="atabs"><button data-a="login" class="on">Entrar</button><button data-a="signup">Crear Usuario</button><button data-a="code">Tengo un código</button></div>
 <form class="aform on" id="fl" data-f="login"><label>Usuario</label><input id="lu" autocomplete="username" required placeholder="Tu nombre de usuario"><label>Contraseña</label><input id="lp" type="password" autocomplete="current-password" required placeholder="••••••"><button class="btn"><span data-i="arrow"></span> Entrar</button><a href="#" class="alink" data-go="forgot">¿Olvidaste tu contraseña?</a></form>
 <form class="aform" id="fs" data-f="signup"><label>Nombre de Usuario</label><input id="su" autocomplete="username" required maxlength="24" placeholder="Ej. mi_usuario"><label>Contraseña</label><input id="sp" type="password" autocomplete="new-password" required minlength="4" placeholder="Mínimo 4 caracteres"><label>Correo de Recuperación</label><input id="sm" type="email" autocomplete="email" required placeholder="tucorreo@ejemplo.com"><div class="hint">Te servirá para recuperar tu contraseña si la olvidas.</div><button class="btn"><span data-i="userplus"></span> Crear mi cuenta</button></form>
+<form class="aform" id="fc" data-f="code"><label>Código de invitación</label><input id="cc" required maxlength="12" autocapitalize="characters" autocomplete="off" placeholder="Ej. K7P2M9XQ" style="text-transform:uppercase;letter-spacing:.15em"><label>Tu nombre</label><input id="cn" required maxlength="24" placeholder="¿Cómo te llamas?"><button class="btn"><span data-i="userplus"></span> Entrar al panel</button><div class="hint">Entrarás al panel de quien te invitó para registrar tus gastos, deudas y ahorros.</div></form>
 <form class="aform" id="ff" data-f="forgot"><h2 style="text-align:center">Recuperar contraseña</h2><label>Usuario</label><input id="fu" required placeholder="Tu nombre de usuario"><label>Correo de Recuperación</label><input id="fm" type="email" required placeholder="El que registraste"><label>Nueva contraseña</label><input id="fp" type="password" autocomplete="new-password" required placeholder="Mínimo 4 caracteres"><button class="btn">Cambiar contraseña</button><a href="#" class="alink" data-go="login">Volver a entrar</a></form>
 <form class="aform" id="fj" data-f="join"><h2 style="text-align:center">Te invitaron a un panel</h2><p class="sub" style="text-align:center;margin:6px 0 4px">Panel de <b id="jown"></b></p><label>Tu nombre</label><input id="jn" required maxlength="24" placeholder="¿Cómo te llamas?"><button class="btn"><span data-i="userplus"></span> Unirme al panel</button><a href="#" class="alink" data-go="login">Ya tengo cuenta</a></form>
 <div class="aerr" id="aerr"></div><div class="asnd"><button type="button" class="btn ghost tm"><span data-i="music"></span> Música</button><button type="button" class="btn ghost ts"><span data-i="vol"></span> Efectos</button></div>
 </div></div>
-<div class="modal" id="modal"><div class="mcard card"><h2><span data-i="userplus"></span> Invitar a Mi Panel</h2><p class="sub" style="margin-top:6px">Comparte este enlace. Quien entre podrá registrar sus gastos, deudas, ahorros y deseos en tu panel.</p><label>Enlace de invitación</label><input id="ilink" readonly><div class="wrow"><button class="btn" id="icopy"><span data-i="copy"></span> Copiar enlace</button><button class="btn ghost" id="ishare"><span data-i="chat"></span> Compartir</button></div><div class="sub" style="margin-top:12px">Código: <b id="icode"></b></div><label>En tu panel</label><div class="mem" id="mem"></div><p class="hint">Las cuentas y paneles se guardan en este navegador: el enlace funciona en este dispositivo. Para sincronizar entre teléfonos distintos hace falta un servidor.</p><button class="btn ghost" id="iclose" style="margin-top:12px">Cerrar</button></div></div>
+<div class="modal" id="modal"><div class="mcard card"><h2><span data-i="userplus"></span> Invitar a Mi Panel</h2><p class="sub" style="margin-top:6px">Comparte este enlace. Quien entre podrá registrar sus gastos, deudas, ahorros y deseos en tu panel.</p><label>Enlace de invitación</label><input id="ilink" readonly><div class="wrow"><button class="btn" id="icopy"><span data-i="copy"></span> Copiar enlace</button><button class="btn ghost" id="ishare"><span data-i="chat"></span> Compartir</button></div><div class="sub" style="margin-top:12px">Código: <b id="icode"></b></div><label>En tu panel</label><div class="mem" id="mem"></div><p class="hint" id="ihint" style="color:var(--deuda)"></p><p class="hint">Las cuentas y paneles se guardan en este navegador: el enlace y el código solo funcionan en este mismo dispositivo y navegador. Para sincronizar entre teléfonos distintos hace falta un servidor.</p><button class="btn ghost" id="iclose" style="margin-top:12px">Cerrar</button></div></div>
 <div class="toast" id="toast"><span id="tm"></span><button id="tu" style="display:none">Deshacer</button></div>
 
 <script>
@@ -315,7 +320,7 @@ const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&
 const ld=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}};
 const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n||0);
 const IC={gem:'<path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/>',card:'<rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/>',cart:'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2L7 14.2 2 9.3l6.9-1z"/>',trash:'<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',check:'<path d="M20 6 9 17l-5-5"/>',plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',archive:'<rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/>',inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',folder:'<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',arrow:'<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',list:'<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/>',chart:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',chat:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',copy:'<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>'};
-Object.assign(IC,{expand:'<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>'});Object.assign(IC,{music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',vol:'<path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>'});const ic=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]||''}</svg>`;
+Object.assign(IC,{expand:'<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>'});Object.assign(IC,{music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',vol:'<path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>'});Object.assign(IC,{users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'});const ic=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]||''}</svg>`;
 const T={Deuda:{c:'var(--deuda)',i:'card'},Gasto:{c:'var(--gasto)',i:'cart'},Ahorro:{c:'var(--ahorro)',i:'mail'},Deseo:{c:'var(--deseo)',i:'star'}};
 const envInner=(t,s,p)=>`<div class="pback"></div><div class="bill"><b>$</b></div><div class="pfront"></div><div class="pflap"></div><div class="pseal">${p}%</div><div class="ptag"><b>${esc(t)}</b><span>${s}</span><div class="pbar"><i style="width:${p}%"></i></div></div>`;
 const envsHTML=A=>A.length?A.map((s,n)=>{const tg=s.target||s.amount,p=Math.min(100,Math.round(s.amount/tg*100));return `<div class="card penv" data-id="${s.id}" style="${skipIn?'':`animation:in .5s ${n*.07}s both`}"><div class="hd" style="margin:0"><span class="sub">${esc(s.category)}${s.completed?' · completado':''}</span><button class="ic" onclick="del('${s.id}')" title="Eliminar">${ic('trash')}</button></div><div class="paper" style="margin-top:52px">${envInner(s.title,`${money(s.amount)} / ${money(tg)}`,p)}</div><div class="dep"><input id="di${s.id}" type="number" min="0.01" step="0.01" placeholder="Monto a abonar"><button class="btn" onclick="dep('${s.id}',this)">${ic('plus')}</button></div></div>`}).join(''):`<div class="empty card" style="grid-column:1/-1"><b>${ic('mail')}</b>No tienes sobres. Crea uno en Registro → Sobre.</div>`;
@@ -374,6 +379,7 @@ function render(){
   
   charts()}
  if(view==='reg')renderItems();
+ if(view==='pan'&&S)renderPanels();
  if(view==='sob'){$('#sobc').textContent=A.length+' sobre'+(A.length===1?'':'s')+' activo'+(A.length===1?'':'s');
   $('#envs').innerHTML=envsHTML(A)}
  if(view==='his'){$('#wap').innerHTML=wfmt(summary());
@@ -421,7 +427,7 @@ const FS=document.documentElement,isFs=()=>document.fullscreenElement||document.
 function goFs(){try{const r=FS.requestFullscreen||FS.webkitRequestFullscreen;if(r){const p=r.call(FS);if(p&&p.catch)p.catch(()=>{})}}catch(e){}}
 const togFs=()=>{try{isFs()?(document.exitFullscreen||document.webkitExitFullscreen).call(document):goFs()}catch(e){}};
 const aerr=m=>{if(m)sfx('err');const e=$('#aerr');e.textContent=m||'';e.classList.toggle('on',!!m)};
-const aview=v=>{aerr();document.querySelectorAll('.aform').forEach(f=>f.classList.toggle('on',f.dataset.f===v));document.querySelectorAll('.atabs button').forEach(b=>b.classList.toggle('on',b.dataset.a===v));$('.atabs').style.display=(v==='login'||v==='signup')?'':'none'};
+const aview=v=>{aerr();document.querySelectorAll('.aform').forEach(f=>f.classList.toggle('on',f.dataset.f===v));document.querySelectorAll('.atabs button').forEach(b=>b.classList.toggle('on',b.dataset.a===v));$('.atabs').style.display=(v==='login'||v==='signup'||v==='code')?'':'none'};
 document.querySelectorAll('.atabs button').forEach(b=>b.onclick=()=>aview(b.dataset.a));
 document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();aview(a.dataset.go)});
 function enter(ses,msg){S=ses;sv('vp_session',S);items=ld(K('items'),[]);cats=ld(K('categories'),['Servicios','Alimentación','Personal','Hogar','Salud','Deudas','Otros']);hist=ld(K('history'),[]);log=ld(K('log'),[]);guests=ld(K('guests'),[]);
@@ -430,7 +436,7 @@ function enter(ses,msg){S=ses;sv('vp_session',S);items=ld(K('items'),[]);cats=ld
 function leave(){try{localStorage.removeItem('vp_session')}catch(e){}S=null;items=[];hist=[];log=[];guests=[];document.querySelectorAll('#auth input').forEach(i=>i.value='');history.replaceState(null,'',location.href.split('#')[0]);$('#auth').classList.remove('hide');aview('login')}
 $('#fl').onsubmit=async e=>{e.preventDefault();const x=US().find(a=>a.uk===$('#lu').value.trim().toLowerCase());
  if(!x||x.h!==await hp(x.s+$('#lp').value))return aerr('Usuario o contraseña incorrectos');
- enter({u:x.u,pid:x.pid,role:'owner'},'Bienvenido de vuelta, '+x.u)};
+ enter({u:x.u,acct:x.uk,pid:x.pid,role:'owner'},'Bienvenido de vuelta, '+x.u)};
 $('#fs').onsubmit=async e=>{e.preventDefault();const u=$('#su').value.trim(),p=$('#sp').value,m=$('#sm').value.trim().toLowerCase(),us=US();
  if(u.length<3)return aerr('El usuario debe tener al menos 3 caracteres');
  if(p.length<4)return aerr('La contraseña debe tener al menos 4 caracteres');
@@ -440,27 +446,27 @@ $('#fs').onsubmit=async e=>{e.preventDefault();const u=$('#su').value.trim(),p=$
  if(!us.length)[['items','finanzas_items'],['categories','finanzas_categories'],['history','finanzas_history'],['log','finanzas_log']].forEach(([n,o])=>{try{const v=localStorage.getItem(o);if(v)localStorage.setItem('vp:'+pid+':'+n,v)}catch(_){}});
  us.push({u,uk:u.toLowerCase(),s:sa,h:await hp(sa+p),e:m,pid,inv:rnd(8)});
  if(!sv('vp_users',us))return aerr('No se pudo guardar la cuenta en este navegador');
- enter({u,pid,role:'owner'},'Cuenta creada. ¡Bienvenido, '+u+'!')};
+ enter({u,acct:u.toLowerCase(),pid,role:'owner'},'Cuenta creada. ¡Bienvenido, '+u+'!')};
 $('#ff').onsubmit=async e=>{e.preventDefault();const us=US(),x=us.find(a=>a.uk===$('#fu').value.trim().toLowerCase()),np=$('#fp').value;
  if(!x||x.e!==$('#fm').value.trim().toLowerCase())return aerr('El usuario y el correo de recuperación no coinciden');
  if(np.length<4)return aerr('La nueva contraseña debe tener al menos 4 caracteres');
  x.s=rnd(8);x.h=await hp(x.s+np);if(!sv('vp_users',us))return aerr('No se pudo guardar el cambio');
  aview('login');$('#lu').value=x.u;$('#lp').value='';toast('Contraseña actualizada. Ya puedes entrar')};
 const JC=((location.hash.match(/join=([A-Za-z0-9]+)/)||[])[1]||'').toUpperCase(),JO=JC&&US().find(x=>x.inv===JC);
-$('#fj').onsubmit=e=>{e.preventDefault();const n=$('#jn').value.trim();if(n.length<2)return aerr('Escribe tu nombre');
- const k='vp:'+JO.pid+':guests',g=ld(k,[]);if(!g.includes(n)&&n.toLowerCase()!==JO.uk){g.push(n);sv(k,g)}
- history.replaceState(null,'',location.href.split('#')[0]);enter({u:n,pid:JO.pid,role:'guest',owner:JO.u},'Te uniste al panel de '+JO.u)};
+$('#fj').onsubmit=e=>{e.preventDefault();const n=$('#jn').value.trim();if(n.length<2)return aerr('Escribe tu nombre');history.replaceState(null,'',location.href.split('#')[0]);enter(joinAs(JO,{u:n,acct:null}),'Te uniste al panel de '+JO.u)};
 $('#bout').onclick=leave;$('#bfs').onclick=togFs;
 async function cp(t){try{await navigator.clipboard.writeText(t);return true}catch(e){try{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();const ok=document.execCommand('copy');a.remove();return ok}catch(_){return false}}}
-$('#binv').onclick=()=>{const o=US().find(x=>x.pid===S.pid);if(!o)return;$('#ilink').value=location.href.split('#')[0]+'#join='+o.inv;$('#icode').textContent=o.inv;
+$('#binv').onclick=()=>{const o=US().find(x=>x.pid===S.pid);if(!o)return;const hb=location.href.split('#')[0];$('#ilink').value=hb+'#join='+o.inv;$('#ihint').textContent=/^(https?|file):/.test(hb)?'':'Estás en una vista previa: el enlace puede no abrir. Abre el archivo desde su ubicación real o comparte el código.';$('#icode').textContent=o.inv;
  $('#mem').innerHTML=[o.u+' (tú)',...guests].map(n=>`<span class="mch">${esc(n)}</span>`).join('');$('#modal').classList.add('on')};
 $('#icopy').onclick=async()=>toast(await cp($('#ilink').value)?'Enlace copiado':'No se pudo copiar');
 $('#ishare').onclick=async()=>{const u=$('#ilink').value;if(navigator.share){try{await navigator.share({title:'VibePay',text:'Únete a mi panel en VibePay',url:u});return}catch(e){if(e.name==='AbortError')return}}toast(await cp(u)?'Enlace copiado':'No se pudo copiar')};
 $('#iclose').onclick=()=>$('#modal').classList.remove('on');$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').classList.remove('on')};
 addEventListener('storage',e=>{if(S&&e.key&&e.key.startsWith('vp:'+S.pid+':')){items=ld(K('items'),[]);cats=ld(K('categories'),cats);hist=ld(K('history'),[]);log=ld(K('log'),[]);guests=ld(K('guests'),[]);fillCats();render()}});
-const ses=ld('vp_session',null);
-if(JO&&!(ses&&ses.pid===JO.pid)){$('#jown').textContent=JO.u;aview('join')}
-else if(ses&&US().some(x=>x.pid===ses.pid))enter(ses);
+const ses=ld('vp_session',null);if(ses&&ses.role==='owner'&&!ses.acct)ses.acct=ses.u.toLowerCase();
+const okS=!!(ses&&US().some(x=>x.pid===ses.pid));
+if(JO&&okS&&ses.acct&&JO.pid!==ses.pid){history.replaceState(null,'',location.href.split('#')[0]);enter(joinAs(JO,{u:ses.u,acct:ses.acct}),'Te uniste al panel de '+JO.u)}
+else if(JO&&!(okS&&ses.pid===JO.pid)){$('#jown').textContent=JO.u;if(ses&&!ses.acct)$('#jn').value=ses.u;aview('join')}
+else if(okS)enter(ses);
 else aview(US().length?'login':'signup');
 
 // ===== Sonido y música ambiente (generados con Web Audio, sin archivos) =====
@@ -506,6 +512,29 @@ document.addEventListener('click',e=>{const b=e.target.closest('button,a,select,
  if(b.id==='fab'||b.id==='binv')return sfx('open');
  sfx('tick')});
 document.addEventListener('visibilitychange',()=>{if(!AC)return;document.hidden?AC.suspend():AC.resume()});
+
+// ===== Paneles compartidos y entrada por código =====
+function me(x){return x.acct||'g:'+x.u.toLowerCase()}
+function findInv(c){c=(c||'').trim().toUpperCase();return c&&US().find(x=>x.inv===c)}
+function joinAs(o,idn){if(idn.acct===o.uk)return{u:o.u,acct:o.uk,role:'owner',pid:o.pid};
+ const k='vp_memb:'+me(idn),m=ld(k,[]);if(!m.some(x=>x.pid===o.pid)){m.push({pid:o.pid,owner:o.u,code:o.inv});sv(k,m)}
+ const gk='vp:'+o.pid+':guests',g=ld(gk,[]);if(!g.includes(idn.u)){g.push(idn.u);sv(gk,g)}
+ return{u:idn.u,acct:idn.acct||null,role:'guest',pid:o.pid,owner:o.u}}
+function renderPanels(){const o=S.acct&&US().find(x=>x.uk===S.acct),mb=ld('vp_memb:'+me(S),[]);
+ const row=(pid,t,sub,own)=>`<div class="row"><div class="dot" style="--c:var(--ac)">${ic(own?'gem':'users')}</div><div class="grow"><b>${esc(t)}</b><span>${esc(sub)}</span></div>${S.pid===pid?'<span class="mch">Activo</span>':`<button class="btn ghost" data-op="${pid}">Abrir</button>`}${own?'':`<button class="ic" data-lv="${pid}" title="Salir del panel">${ic('x')}</button>`}</div>`;
+ $('#plist').innerHTML=(o?row(o.pid,'Mi panel · '+o.u,'Panel propio · '+ld('vp:'+o.pid+':guests',[]).length+' invitado(s) · código '+o.inv,true):'')+mb.map(m=>row(m.pid,'Panel de '+m.owner,'Compartido contigo · código '+m.code,false)).join('')||`<div class="empty"><b>${ic('users')}</b>Aún no tienes paneles.</div>`}
+$('#plist').onclick=e=>{const b=e.target.closest('[data-op],[data-lv]');if(!b)return;const o=S.acct&&US().find(x=>x.uk===S.acct),k='vp_memb:'+me(S);
+ if(b.dataset.op){const pid=b.dataset.op;if(o&&o.pid===pid)return enter({u:S.u,acct:S.acct,role:'owner',pid},'Estás en tu panel');
+  const m=ld(k,[]).find(x=>x.pid===pid);if(m)enter({u:S.u,acct:S.acct,role:'guest',pid,owner:m.owner},'Panel de '+m.owner)}
+ else{const pid=b.dataset.lv,gk='vp:'+pid+':guests';sv(k,ld(k,[]).filter(x=>x.pid!==pid));sv(gk,ld(gk,[]).filter(n=>n!==S.u));
+  if(S.pid===pid){if(o)return enter({u:S.u,acct:S.acct,role:'owner',pid:o.pid},'Saliste del panel compartido');return leave()}
+  renderPanels();toast('Saliste del panel')}};
+$('#pj').onclick=()=>{const o=findInv($('#pc').value);if(!o){sfx('err');return toast('Ese código no existe en este navegador')}
+ $('#pc').value='';enter(joinAs(o,{u:S.u,acct:S.acct}),'Te uniste al panel de '+o.u)};
+$('#fc').onsubmit=e=>{e.preventDefault();const o=findInv($('#cc').value),n=$('#cn').value.trim();
+ if(!o)return aerr('Ese código no existe en este navegador. Revísalo, o úsalo en el mismo dispositivo donde se creó el panel.');
+ if(n.length<2)return aerr('Escribe tu nombre');
+ enter(joinAs(o,{u:n,acct:null}),'Te uniste al panel de '+o.u)};
 </script>
 </body>
 </html>
