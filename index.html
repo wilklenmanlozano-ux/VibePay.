@@ -221,6 +221,7 @@ header{grid-area:head;padding:22px 32px 12px}h1{font-size:26px}.pill{font-size:1
 .modal.on .mcard{transform:none}
 .mem{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
 .mch{font-size:11px;padding:5px 10px;border-radius:99px;background:var(--card2);border:1px solid var(--bd);color:var(--mut)}
+.asnd{display:flex;gap:8px;justify-content:center;margin-top:16px}.asnd .btn{display:inline-flex;align-items:center;gap:6px}.btn.off{opacity:.45}
 </style>
 </head>
 <body>
@@ -232,7 +233,7 @@ header{grid-area:head;padding:22px 32px 12px}h1{font-size:26px}.pill{font-size:1
   <div class="pill" id="hb">$0.00</div>
 </header>
 <main class="scroll" id="scroll">
-<div class="card greet" id="greet"><div><small>Bienvenido</small><h2>Hola, <span id="gname"></span></h2><div class="sub" id="gsub"></div></div><div class="gb"><button class="btn sm" id="binv"><span data-i="userplus"></span> Invitar a Mi Panel</button><button class="btn ghost" id="bfs" title="Pantalla completa" aria-label="Pantalla completa"><span data-i="expand"></span></button><button class="btn ghost" id="bout"><span data-i="logout"></span> Salir</button></div></div>
+<div class="card greet" id="greet"><div><small>Bienvenido</small><h2>Hola, <span id="gname"></span></h2><div class="sub" id="gsub"></div></div><div class="gb"><button class="btn sm" id="binv"><span data-i="userplus"></span> Invitar a Mi Panel</button><button class="btn ghost tm" title="Música" aria-label="Música"><span data-i="music"></span></button><button class="btn ghost ts" title="Efectos de sonido" aria-label="Efectos de sonido"><span data-i="vol"></span></button><button class="btn ghost" id="bfs" title="Pantalla completa" aria-label="Pantalla completa"><span data-i="expand"></span></button><button class="btn ghost" id="bout"><span data-i="logout"></span> Salir</button></div></div>
 
 <section class="view" id="v-res">
   <div class="grid k4" id="kpis" style="margin-bottom:14px"></div>
@@ -304,7 +305,7 @@ header{grid-area:head;padding:22px 32px 12px}h1{font-size:26px}.pill{font-size:1
 <form class="aform" id="fs" data-f="signup"><label>Nombre de Usuario</label><input id="su" autocomplete="username" required maxlength="24" placeholder="Ej. mi_usuario"><label>Contraseña</label><input id="sp" type="password" autocomplete="new-password" required minlength="4" placeholder="Mínimo 4 caracteres"><label>Correo de Recuperación</label><input id="sm" type="email" autocomplete="email" required placeholder="tucorreo@ejemplo.com"><div class="hint">Te servirá para recuperar tu contraseña si la olvidas.</div><button class="btn"><span data-i="userplus"></span> Crear mi cuenta</button></form>
 <form class="aform" id="ff" data-f="forgot"><h2 style="text-align:center">Recuperar contraseña</h2><label>Usuario</label><input id="fu" required placeholder="Tu nombre de usuario"><label>Correo de Recuperación</label><input id="fm" type="email" required placeholder="El que registraste"><label>Nueva contraseña</label><input id="fp" type="password" autocomplete="new-password" required placeholder="Mínimo 4 caracteres"><button class="btn">Cambiar contraseña</button><a href="#" class="alink" data-go="login">Volver a entrar</a></form>
 <form class="aform" id="fj" data-f="join"><h2 style="text-align:center">Te invitaron a un panel</h2><p class="sub" style="text-align:center;margin:6px 0 4px">Panel de <b id="jown"></b></p><label>Tu nombre</label><input id="jn" required maxlength="24" placeholder="¿Cómo te llamas?"><button class="btn"><span data-i="userplus"></span> Unirme al panel</button><a href="#" class="alink" data-go="login">Ya tengo cuenta</a></form>
-<div class="aerr" id="aerr"></div>
+<div class="aerr" id="aerr"></div><div class="asnd"><button type="button" class="btn ghost tm"><span data-i="music"></span> Música</button><button type="button" class="btn ghost ts"><span data-i="vol"></span> Efectos</button></div>
 </div></div>
 <div class="modal" id="modal"><div class="mcard card"><h2><span data-i="userplus"></span> Invitar a Mi Panel</h2><p class="sub" style="margin-top:6px">Comparte este enlace. Quien entre podrá registrar sus gastos, deudas, ahorros y deseos en tu panel.</p><label>Enlace de invitación</label><input id="ilink" readonly><div class="wrow"><button class="btn" id="icopy"><span data-i="copy"></span> Copiar enlace</button><button class="btn ghost" id="ishare"><span data-i="chat"></span> Compartir</button></div><div class="sub" style="margin-top:12px">Código: <b id="icode"></b></div><label>En tu panel</label><div class="mem" id="mem"></div><p class="hint">Las cuentas y paneles se guardan en este navegador: el enlace funciona en este dispositivo. Para sincronizar entre teléfonos distintos hace falta un servidor.</p><button class="btn ghost" id="iclose" style="margin-top:12px">Cerrar</button></div></div>
 <div class="toast" id="toast"><span id="tm"></span><button id="tu" style="display:none">Deshacer</button></div>
@@ -314,7 +315,7 @@ const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&
 const ld=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}};
 const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n||0);
 const IC={gem:'<path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/>',card:'<rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/>',cart:'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2L7 14.2 2 9.3l6.9-1z"/>',trash:'<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',check:'<path d="M20 6 9 17l-5-5"/>',plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',archive:'<rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/>',inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',folder:'<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',arrow:'<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',list:'<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/>',chart:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',chat:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',copy:'<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>'};
-Object.assign(IC,{expand:'<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>'});const ic=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]||''}</svg>`;
+Object.assign(IC,{expand:'<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/>'});Object.assign(IC,{music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',vol:'<path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>'});const ic=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]||''}</svg>`;
 const T={Deuda:{c:'var(--deuda)',i:'card'},Gasto:{c:'var(--gasto)',i:'cart'},Ahorro:{c:'var(--ahorro)',i:'mail'},Deseo:{c:'var(--deseo)',i:'star'}};
 const envInner=(t,s,p)=>`<div class="pback"></div><div class="bill"><b>$</b></div><div class="pfront"></div><div class="pflap"></div><div class="pseal">${p}%</div><div class="ptag"><b>${esc(t)}</b><span>${s}</span><div class="pbar"><i style="width:${p}%"></i></div></div>`;
 const envsHTML=A=>A.length?A.map((s,n)=>{const tg=s.target||s.amount,p=Math.min(100,Math.round(s.amount/tg*100));return `<div class="card penv" data-id="${s.id}" style="${skipIn?'':`animation:in .5s ${n*.07}s both`}"><div class="hd" style="margin:0"><span class="sub">${esc(s.category)}${s.completed?' · completado':''}</span><button class="ic" onclick="del('${s.id}')" title="Eliminar">${ic('trash')}</button></div><div class="paper" style="margin-top:52px">${envInner(s.title,`${money(s.amount)} / ${money(tg)}`,p)}</div><div class="dep"><input id="di${s.id}" type="number" min="0.01" step="0.01" placeholder="Monto a abonar"><button class="btn" onclick="dep('${s.id}',this)">${ic('plus')}</button></div></div>`}).join(''):`<div class="empty card" style="grid-column:1/-1"><b>${ic('mail')}</b>No tienes sobres. Crea uno en Registro → Sobre.</div>`;
@@ -339,7 +340,7 @@ $('#nc').onclick=e=>{e.preventDefault();$('#ncw').style.display='flex';$('#ncv')
 $('#ncs').onclick=()=>{const v=$('#ncv').value.trim();if(v&&!cats.includes(v)){cats.push(v);save();fillCats(v);toast('Categoría "'+v+'" agregada')}$('#ncv').value='';$('#ncw').style.display='none'};
 $('#f').onsubmit=e=>{e.preventDefault();const a=parseFloat($('#a').value)||0,tg=parseFloat($('#t').value)||0;
  const it={by:S.u,id:Date.now()+'',title:$('#d').value.trim(),amount:a,target:type==='Ahorro'?(tg||a):0,date:$('#dt').value||new Date().toISOString().slice(0,10),type,category:$('#cat').value,completed:type==='Ahorro'?(tg>0&&a>=tg):false};
- if(!it.title)return;items.unshift(it);addLog('add',`${type}: ${it.title}`,a);save();$('#d').value=$('#a').value=$('#t').value='';toast('Registro guardado en '+type);render();sheet(false)};
+ if(!it.title)return;items.unshift(it);addLog('add',`${type}: ${it.title}`,a);save();$('#d').value=$('#a').value=$('#t').value='';toast('Registro guardado en '+type);sfx('ok');render();sheet(false)};
 
 // filters
 $('#flt').innerHTML=['Todos','Deuda','Gasto','Deseo'].map(f=>`<button class="chip ${f==='Todos'?'on':''}" data-f="${f}" style="padding:8px 10px">${f}</button>`).join('');
@@ -351,7 +352,7 @@ function del(id){const i=items.findIndex(x=>x.id===id);if(i<0)return;const it=it
  if(el){el.classList.add('out');setTimeout(go,280)}else go()}
 function tog(id){const it=items.find(x=>x.id===id);it.completed=!it.completed;addLog('done',`${it.completed?'Completado':'Reabierto'}: ${it.title}`,it.amount);save();render();if(it.completed)confetti(innerWidth/2,innerHeight/2)}
 function dep(id,btn){const inp=$('#di'+id),v=parseFloat(inp.value);if(!(v>0))return;const it=items.find(x=>x.id===id);it.amount+=v;it.completed=it.amount>=(it.target||it.amount);addLog('dep',`Abono a ${it.title}`,v);save();skipIn=true;render();skipIn=false;const e=document.querySelector(`.penv[data-id="${id}"] .paper`);if(e){e.classList.add('depo');e.querySelector('.bill b').textContent=money(v);const r=e.getBoundingClientRect();setTimeout(()=>confetti(r.left+r.width/2,r.top+r.height/2),1250);setTimeout(()=>e.classList.remove('depo'),1900)}toast('Abono de '+money(v)+' registrado')}
-function confetti(x,y){for(let i=0;i<7;i++){const c=document.createElement('div');c.className='coin';c.style.left=x+'px';c.style.top=y+'px';c.style.setProperty('--x',(Math.random()*120-60)+'px');document.body.appendChild(c);setTimeout(()=>c.remove(),900)}}
+function confetti(x,y){sfx('coin');for(let i=0;i<7;i++){const c=document.createElement('div');c.className='coin';c.style.left=x+'px';c.style.top=y+'px';c.style.setProperty('--x',(Math.random()*120-60)+'px');document.body.appendChild(c);setTimeout(()=>c.remove(),900)}}
 function delSnap(id){const i=hist.findIndex(x=>x.id===id),h=hist[i];hist.splice(i,1);save();render();toast('Cierre eliminado',()=>{hist.splice(i,0,h);save();render()})}
 $('#snaps').onclick=e=>{const d=e.target.closest('[data-ds]');if(d)return delSnap(d.dataset.ds);const t=e.target.closest('[data-os]');if(t)t.closest('.snap').classList.toggle('open')};
 $('#clrlog').onclick=()=>{if(!log.length)return;const old=log;log=[];save();render();toast('Actividad vaciada',()=>{log=old;save();render()})};
@@ -396,7 +397,7 @@ const sheet=o=>{$('#sheet').classList.toggle('open',o);$('#bd').classList.toggle
 $('#fab').onclick=()=>sheet(!$('#sheet').classList.contains('open'));$('#bd').onclick=()=>sheet(false);
 const letters=(el,t)=>{el.innerHTML=t.split('').map((c,i)=>`<span class="${i>3?'p':''}" style="--i:${i}">${esc(c)}</span>`).join('')};letters($('#it'),'VibePay');letters($('#bigt'),'VibePay');
 for(let i=0;i<14;i++){const c=document.createElement('i');c.className='icoin';c.style.cssText=`left:${Math.random()*100}%;animation-duration:${5+Math.random()*5}s;animation-delay:${-Math.random()*8}s`;$('#intro').appendChild(c)}
-let started=false;const go=()=>{if(started)return;started=true;goFs();const n=$('#intro');n.classList.add('open');setTimeout(()=>n.classList.add('zoom'),900);setTimeout(()=>{n.classList.add('out');setTimeout(()=>n.remove(),800)},3900)};$('#go').onclick=go;addEventListener('keydown',e=>{if(e.key==='Enter'&&$('#intro'))go()});
+let started=false;const go=()=>{if(started)return;started=true;goFs();startAudio();const n=$('#intro');n.classList.add('open');setTimeout(()=>n.classList.add('zoom'),900);setTimeout(()=>{n.classList.add('out');setTimeout(()=>n.remove(),800)},3900)};$('#go').onclick=go;addEventListener('keydown',e=>{if(e.key==='Enter'&&$('#intro'))go()});
 function wfmt(t){return esc(t).replace(/\*([^*\n]+)\*/g,'<b>$1</b>')}
 function summary(){const f=t=>items.filter(i=>i.type===t),A=f('Ahorro'),D=f('Deuda'),G=f('Gasto'),W=f('Deseo');
  const sav=sum(A,'amount'),meta=A.reduce((x,i)=>x+(i.target||i.amount),0),dp=sum(D.filter(i=>!i.completed),'amount'),ds=sum(D.filter(i=>i.completed),'amount'),pc=(a,b)=>b?Math.round(a/b*100):0;
@@ -419,13 +420,13 @@ const hp=async t=>{try{const b=await crypto.subtle.digest('SHA-256',new TextEnco
 const FS=document.documentElement,isFs=()=>document.fullscreenElement||document.webkitFullscreenElement;
 function goFs(){try{const r=FS.requestFullscreen||FS.webkitRequestFullscreen;if(r){const p=r.call(FS);if(p&&p.catch)p.catch(()=>{})}}catch(e){}}
 const togFs=()=>{try{isFs()?(document.exitFullscreen||document.webkitExitFullscreen).call(document):goFs()}catch(e){}};
-const aerr=m=>{const e=$('#aerr');e.textContent=m||'';e.classList.toggle('on',!!m)};
+const aerr=m=>{if(m)sfx('err');const e=$('#aerr');e.textContent=m||'';e.classList.toggle('on',!!m)};
 const aview=v=>{aerr();document.querySelectorAll('.aform').forEach(f=>f.classList.toggle('on',f.dataset.f===v));document.querySelectorAll('.atabs button').forEach(b=>b.classList.toggle('on',b.dataset.a===v));$('.atabs').style.display=(v==='login'||v==='signup')?'':'none'};
 document.querySelectorAll('.atabs button').forEach(b=>b.onclick=()=>aview(b.dataset.a));
 document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();aview(a.dataset.go)});
 function enter(ses,msg){S=ses;sv('vp_session',S);items=ld(K('items'),[]);cats=ld(K('categories'),['Servicios','Alimentación','Personal','Hogar','Salud','Deudas','Otros']);hist=ld(K('history'),[]);log=ld(K('log'),[]);guests=ld(K('guests'),[]);
  $('#gname').textContent=S.u;$('#gsub').textContent=S.role==='guest'?'Estás en el panel de '+S.owner:'Tu panel personal';$('#binv').style.display=S.role==='guest'?'none':'';
- fillCats();$('#auth').classList.add('hide');document.querySelector('#nav button[data-v="reg"]').click();if(msg)toast(msg)}
+ fillCats();$('#auth').classList.add('hide');document.querySelector('#nav button[data-v="reg"]').click();if(msg){toast(msg);sfx('ok')}}
 function leave(){try{localStorage.removeItem('vp_session')}catch(e){}S=null;items=[];hist=[];log=[];guests=[];document.querySelectorAll('#auth input').forEach(i=>i.value='');history.replaceState(null,'',location.href.split('#')[0]);$('#auth').classList.remove('hide');aview('login')}
 $('#fl').onsubmit=async e=>{e.preventDefault();const x=US().find(a=>a.uk===$('#lu').value.trim().toLowerCase());
  if(!x||x.h!==await hp(x.s+$('#lp').value))return aerr('Usuario o contraseña incorrectos');
@@ -461,6 +462,50 @@ const ses=ld('vp_session',null);
 if(JO&&!(ses&&ses.pid===JO.pid)){$('#jown').textContent=JO.u;aview('join')}
 else if(ses&&US().some(x=>x.pid===ses.pid))enter(ses);
 else aview(US().length?'login':'signup');
+
+// ===== Sonido y música ambiente (generados con Web Audio, sin archivos) =====
+let AC=null,master,sfxBus,musicBus,mInt=null,mNext=0,mStep=0,snd=Object.assign({sfx:true,music:true},ld('vp_sound',{}));
+const mf=m=>440*Math.pow(2,(m-69)/12),BAR=6.4;
+function aud(){if(AC){if(AC.state==='suspended')AC.resume();return AC}
+ const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C();
+ master=AC.createGain();master.gain.value=.9;master.connect(AC.destination);
+ sfxBus=AC.createGain();sfxBus.gain.value=.55;sfxBus.connect(master);
+ musicBus=AC.createGain();musicBus.gain.value=0;
+ const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1700;
+ const dl=AC.createDelay(1),fb=AC.createGain(),wg=AC.createGain();dl.delayTime.value=.46;fb.gain.value=.4;wg.gain.value=.45;
+ musicBus.connect(lp);lp.connect(master);lp.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(wg);wg.connect(master);
+ return AC}
+function tone(f,t,d,o={}){const x=AC.createOscillator(),g=AC.createGain(),a=o.a||.01,v=o.v||.2;x.type=o.type||'sine';x.frequency.setValueAtTime(f,t);if(o.to)x.frequency.exponentialRampToValueAtTime(o.to,t+d);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+d);x.connect(g);g.connect(o.bus||sfxBus);x.start(t);x.stop(t+d+.05)}
+function sfx(n){if(!snd.sfx||!aud())return;const t=AC.currentTime+.005,T=(f,dt,d,o)=>tone(f,t+dt,d,o);
+ switch(n){
+ case'tab':T(523,0,.16,{type:'triangle',v:.16});T(784,.07,.2,{type:'triangle',v:.14});break;
+ case'ok':T(659,0,.25,{v:.2});T(880,.09,.25,{v:.18});T(1175,.18,.4,{v:.16});break;
+ case'del':T(420,0,.22,{type:'triangle',v:.2,to:200});break;
+ case'check':T(784,0,.15,{v:.18});T(1047,.08,.3,{v:.16});break;
+ case'coin':T(1319,0,.12,{type:'square',v:.05});T(1760,.07,.5,{v:.14});T(2093,.07,.4,{v:.05});break;
+ case'open':T(330,0,.3,{type:'triangle',v:.12,to:660});break;
+ case'err':T(233,0,.25,{type:'triangle',v:.18});T(196,.12,.35,{type:'triangle',v:.18});break;
+ case'start':[523,659,784,1047].forEach((f,i)=>T(f,i*.1,.9,{v:.12,a:.02}));break;
+ default:T(680,0,.07,{v:.12,to:480})}}
+const CH=[{b:45,p:[57,60,64,67,71]},{b:41,p:[53,57,60,64,67]},{b:48,p:[52,55,59,64,67]},{b:43,p:[50,55,59,62,64]}];
+function bar(t){const c=CH[mStep++%4];
+ c.p.forEach((m,i)=>tone(mf(m),t+i*.15,BAR+2,{type:i%2?'triangle':'sine',v:.045,a:2.2,bus:musicBus}));
+ tone(mf(c.b),t,BAR,{v:.13,a:.08,bus:musicBus});
+ for(let k=0;k<8;k++)if(Math.random()<.7){const m=c.p[Math.floor(Math.random()*c.p.length)]+12;tone(mf(m),t+k*BAR/8+Math.random()*.04,1.8,{type:'triangle',v:.055,a:.01,bus:musicBus})}}
+function musicOn(){if(!aud())return;musicBus.gain.cancelScheduledValues(AC.currentTime);musicBus.gain.setTargetAtTime(.75,AC.currentTime,.8);if(mInt)return;mNext=AC.currentTime+.15;const run=()=>{while(mNext<AC.currentTime+1.2){bar(mNext);mNext+=BAR}};run();mInt=setInterval(run,400)}
+function musicOff(){clearInterval(mInt);mInt=null;if(AC)musicBus.gain.setTargetAtTime(0,AC.currentTime,.25)}
+function startAudio(){if(!aud())return;sfx('start');if(snd.music)musicOn()}
+const synch=()=>{document.querySelectorAll('.tm').forEach(b=>b.classList.toggle('off',!snd.music));document.querySelectorAll('.ts').forEach(b=>b.classList.toggle('off',!snd.sfx))};
+document.querySelectorAll('.tm').forEach(b=>b.onclick=()=>{snd.music=!snd.music;sv('vp_sound',snd);snd.music?musicOn():musicOff();synch()});
+document.querySelectorAll('.ts').forEach(b=>b.onclick=()=>{snd.sfx=!snd.sfx;sv('vp_sound',snd);synch();if(snd.sfx)sfx('ok')});
+synch();
+document.addEventListener('click',e=>{const b=e.target.closest('button,a,select,.chip');if(!b||b.disabled)return;
+ if(b.closest('#nav'))return sfx('tab');
+ if(b.classList.contains('chk'))return sfx(b.closest('.done')?'tick':'check');
+ if(b.classList.contains('ic'))return sfx('del');
+ if(b.id==='fab'||b.id==='binv')return sfx('open');
+ sfx('tick')});
+document.addEventListener('visibilitychange',()=>{if(!AC)return;document.hidden?AC.suspend():AC.resume()});
 </script>
 </body>
 </html>
